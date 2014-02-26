@@ -1,0 +1,51 @@
+﻿<Window x:Class="ConwaysLife.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:ConwaysLife"
+        Title="Life" Height="650" Width="1225">
+    <Window.Resources>
+        <RadialGradientBrush x:Key="cellBrush" GradientOrigin="0.5,0.5" Center="0.5,0.5" 
+          RadiusX="0.5" RadiusY="0.5">
+            <GradientStop Color="LemonChiffon" Offset="0" />
+            <GradientStop Color="IndianRed" Offset="1" />
+        </RadialGradientBrush>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="150px"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            
+        </Grid.RowDefinitions>
+        <DockPanel LastChildFill="True" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4">
+            
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="0">
+                <local:UniverseView x:Name="universeView" Background="Ivory" Foreground="{StaticResource cellBrush}" Padding="20"  >
+                    <local:UniverseView.LayoutTransform>
+                        <ScaleTransform x:Name="viewScale" ScaleY="{Binding ElementName=comboBox2, Path=SelectedValue, Mode=OneWay}" />
+                    </local:UniverseView.LayoutTransform>
+                </local:UniverseView>
+            </ScrollViewer>
+        </DockPanel>
+
+        <Button Content="Clear" Click="OnClear" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"/>
+        <Button Content="Next"  Click="OnNext" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" Margin="0,10,0,0"/>
+        <Button Content="Run" Name="btnRun" Click="OnRun" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120" Margin="0,0,0,10"/>
+        <TextBlock Text="Dimensions" VerticalAlignment="Top" Margin="15,0,5,0" Grid.Column="1" Grid.Row="2"/>
+        <ComboBox  Width="120" Name="comboBox1"  SelectedValue="{Binding ElementName=universeView, Path=Dimensions, Mode=TwoWay}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" SelectedIndex="1">
+            <s:String>25 x 25</s:String>
+            <s:String>100 x 100</s:String>
+            <s:String>1000000 x 1000000</s:String>
+            <s:String>10000000 x 10000000</s:String>
+        </ComboBox>
+
+        <Button Content="Save"  Click="OnSave" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" Margin="0,10,0,0"/>
+        <Button Content="Load"  Click="OnLoad" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" Margin="0,40,0,0"/>
+
+    </Grid>
+</Window>
